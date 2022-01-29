@@ -49,10 +49,11 @@ echo "${response}"
 ASSET_URL=$(echo ${response} | jq '.url')
 ASSET_ID=$(echo ${response} | jq '.id')
 
-if [ -z "$ASSET_URL" ]; then
+if [[ -z "$ASSET_URL" ]] || [[ "$ASSET_URL" = null ]]; then
   echo "No asset URL in response."
   exit 1
 else
+  echo "Got asset URL ${ASSET_URL}"
   echo "::set-output name=asset-url::${ASSET_URL}"
   echo "::set-output name=asset-id::${ASSET_ID}"
 fi
